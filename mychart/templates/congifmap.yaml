@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mychart.fullname" . }}-cm
+  labels:
+    app: {{ include "mychart.chart" .}}
+data:
+  food: {{ .Values.config.food}}
+  drink: {{ .Values.config.drink}}

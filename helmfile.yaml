@@ -1,8 +1,6 @@
-
-
 releases:
   - name: my-app
-    namespace: default
+    namespace: helm
     chart: ./mychart
     version: 1.0.0
     values:
@@ -14,3 +12,10 @@ releases:
     version: 1.0.0
     values:
       - ./mychart/env/values2.yaml
+
+  - name: chart1
+    namespace: helm
+    chart: ./chart1
+    version: 1.0.0
+    values:
+      - ./chart1/values.yaml

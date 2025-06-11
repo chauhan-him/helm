@@ -9,7 +9,7 @@ releases:
       - ./mychart/env/values.yaml
 
   - name: my-app-env2
-    namespace: default
+    namespace: helm
     chart: ./mychart
     version: 1.0.0
     values:

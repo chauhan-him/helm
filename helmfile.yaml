@@ -1,0 +1,16 @@
+
+
+releases:
+  - name: my-app
+    namespace: default
+    chart: ./mychart
+    version: 1.0.0
+    values:
+      - ./mychart/env/values.yaml
+
+  - name: my-app-env2
+    namespace: default
+    chart: ./mychart
+    version: 1.0.0
+    values:
+      - ./mychart/env/values2.yaml

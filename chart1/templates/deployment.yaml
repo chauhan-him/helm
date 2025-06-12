@@ -1,10 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mychart.fullname" . }}
-  namespace: {{ .Values.namespace }}
+  name: {{ .Release.Name }}-app
+  namespace: {{ .Values.namespace | default "default" }}
   labels:
     app: {{ include "mychart.name" . }}
+    environment: {{ .Values.labels.environment }}
+    team: {{ .Values.labels.team }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,6 +16,8 @@ spec:
     metadata:
       labels:
         app: {{ include "mychart.name" . }}
+        environment: {{ .Values.labels.environment }}
+        team: {{ .Values.labels.team }}
     spec:
       containers:
         - name: {{ include "mychart.name" . }}
@@ -27,4 +31,20 @@ spec:
                   name: k-secret
                   key: {{ .key | quote }}
             {{- end }}
+
+            {{- range .Values.config }}
+            - name: {{ .name }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $.Release.Name }}-config
+                  key: {{ .key | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-config
 

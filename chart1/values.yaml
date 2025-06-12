@@ -16,4 +16,18 @@ secretEnv:
   - name: API_TOKEN
     key: apiToken
 
-namespace: default
+config:
+  - key: FIRSTNAME
+    name: himanshu
+  - key: PASSWORD
+    name: mypassword
+
+
+labels:
+  environment: "" 
+  team: "" 
+
+
+
+
+
